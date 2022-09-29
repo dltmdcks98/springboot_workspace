@@ -21,10 +21,10 @@ function regist(){
 		contentType:"application/json;charset=utf-8",
 		data:JSON.stringify(json),//json=>String
 		success:function(result, status, xhr){
-			alert(result);
+			alert(result.msg);
 		},
 		error:function(xhr, status, error){
-			alert(error);
+			alert(error.msg);
 		}
 	});
 }
