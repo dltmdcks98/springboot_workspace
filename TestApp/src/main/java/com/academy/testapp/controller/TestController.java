@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TestController {
 	
-	@GetMapping("/test")
-	@ResponseBody
+	@GetMapping("/board/list")
 	public String getMsg() {
-		return "hi this is message from springboot";
+		return "board/list";
 	}
 }
