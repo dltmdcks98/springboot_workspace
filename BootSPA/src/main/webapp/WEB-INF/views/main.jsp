@@ -5,6 +5,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 <style type="text/css">
 	body{margin:0px;}
 	#wrapper{
@@ -36,7 +40,7 @@
 	}
 </style>
 
-<script type="text/javascript">
+<script type="text/babel">
 /*--------------------------------------------------------------------
  *동기방식의 폼 전송
  ---------------------------------------------------------------------*/
@@ -102,7 +106,75 @@
  		});
  	}
  	
+ 	/*--------------------------------------------------------------------
+ 	 *비동기 방식으로 목록 가져오기
+ 	 ---------------------------------------------------------------------*/
+ 	 function getList(){
+ 		$.ajax({
+ 			url:"/rest/board",
+ 			type:"get",
+ 			success:function(result, status, xhr){
+ 				console.log("서버로부터 받은 json 목록",result);
+
+				printList(result);//json 배열을 넘겨주자
+ 			},
+ 			error:function(xhr,status,error){
+ 				console.log(error);
+ 			}
+ 			
+ 		});
+ 	}
+  	
+ 	/*--------------------------------------------------------------------
+  	 *React를 이용한 UI처리
+  	 ---------------------------------------------------------------------*/
+  	 function Row(props){
+ 		return(
+			<tr align="center">
+				<td>{props.board_id}</td>
+				<td>{props.title}</td>
+				<td>{props.writer}</td>
+				<td>{props.regdate}</td>
+				<td>{props.hit}</td>
+			</tr>
+ 		);
+ 	}
  	
+  	 function BoardTable(props){
+		var list = props.boardList;
+		//tr을 반복한 컨테츠를 구성 
+		var tag =[];//여기에 tr을 모아둘것임
+
+		for(var i=0; i<list.length; i++){
+			var obj = list[i];//게시물 한건 꺼내기
+			tag.push(<Row board_id={obj.board_id} title={obj.title} writer={obj.writer} regdate={obj.regdate} hit={obj.regdate} />); //arrayList.add()와 동일
+		}
+		return(
+ 			<table width="100%" border="1px">
+ 				<thead>
+ 					<tr>
+ 						<th>No</th>
+ 						<th>제목</th>
+ 						<th>작성자</th>
+ 						<th>등록일</th>
+ 						<th>조회수</th>
+ 					</tr>
+ 				</thead>
+ 				<tbody>
+					{tag}
+ 				</tbody>
+ 			</table>		
+ 		);
+ 	}
+  	 //화면에 테이블 출력함수
+  	 function printList(jsonArray){
+ 		
+ 		var root = ReactDOM.createRoot(document.getElementById("list-area"));
+ 		root.render(<BoardTable boardList={jsonArray} />);
+ 	}
+  	 
+  	 
+  	 
 	$(function(){
 		$($("#input-area button")[0]).click(function(){
 			regist();
@@ -115,6 +187,7 @@
 			registByJson();
 		});
 		
+		getList();
 	});
 </script>
 </head>
