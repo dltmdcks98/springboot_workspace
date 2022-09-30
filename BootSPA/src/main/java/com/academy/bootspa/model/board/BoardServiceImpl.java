@@ -13,7 +13,7 @@ import com.academy.bootspa.model.domain.Board;
 public class BoardServiceImpl implements BoardService{
 
 	@Autowired
-	@Qualifier("mybatisBoardDAO")
+	@Qualifier("hibernateBoardDAO")
 	private BoardDAO boardDAO;
 
 	@Override
