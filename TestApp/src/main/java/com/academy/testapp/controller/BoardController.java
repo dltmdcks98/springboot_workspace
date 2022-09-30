@@ -1,5 +1,7 @@
 package com.academy.testapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,14 @@ public class BoardController {
 		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK); 
 		
 		return entity;
+	}
+	
+	@GetMapping("/board/listform")
+	public ModelAndView getList() {
+		ModelAndView mav = new ModelAndView();
+		List boardList= boardService.selectAll();
+		mav.addObject("boardList",boardList);
+		return mav;
 	}
 	
 	@ExceptionHandler(BoardException.class)
