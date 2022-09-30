@@ -49,10 +49,28 @@
 	}
  	/*--------------------------------------------------------------------
  	 *비동기 방식의 기존폼을 이용한 Parameter 문자열 전송
+ 		serialize : queryString의 형식으로 넘어감
+ 		serializeArray : key : value로 나옴
+ 		contentType은 : post방식에서의 네트워크 header부분에 application/x-www-form-urlencoded 이 나와있다.
  	 ---------------------------------------------------------------------*/
  	function registBySerial(){
 		var params = $("#input-form").serialize();
 		console.log(params);
+		
+		//이미 전송할 파라미터화가 완료되었으므로, Json으로 변환하지 말고 그냥 보내보자
+		$.ajax({
+			url:"/rest/board",
+			type:"post",
+			data:params,
+			contentType:"application/x-www-form-urlencoded;charset=utf-8",
+			success:function(result,status,xhr){
+				alert(result);
+			},
+			error:function(xhr,status,error){
+				alert(error);
+			}
+			
+		});
 	}
  	
  	/*--------------------------------------------------------------------
