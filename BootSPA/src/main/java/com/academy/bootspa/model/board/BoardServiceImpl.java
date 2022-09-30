@@ -36,9 +36,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void update(Board board) {
+	public void update(Board board) throws BoardException{
 		// TODO Auto-generated method stub
-
+		boardDAO.update(board);
 	}
 
 	@Override

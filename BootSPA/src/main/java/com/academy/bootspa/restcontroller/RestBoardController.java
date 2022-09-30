@@ -71,8 +71,11 @@ public class RestBoardController {
 	@PutMapping("/board")
 	public ResponseEntity<Message> update(Board board){
 		System.out.println("수정 요청으로 받은 파라미터"+board);
-
- 		return null;
+		boardService.update(board);
+		
+		Message message = new Message(1,"수정 성공");
+		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
+ 		return entity ;
 	}
 	
 	@ExceptionHandler(BoardException.class)

@@ -214,6 +214,7 @@
 				contentType:"application/x-www-form-urlencoded;charset=utf-8",
 				success:function(result,status,xhr){
 					console.log(result);
+					getList();
 				}
 
 			});
