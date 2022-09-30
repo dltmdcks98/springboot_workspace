@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,14 @@ public class RestBoardController {
 		return board;
 	}
 
+	//한건 수정 요청
+	@PutMapping("/board")
+	public ResponseEntity<Message> update(Board board){
+		System.out.println("수정 요청으로 받은 파라미터"+board);
+
+ 		return null;
+	}
+	
 	@ExceptionHandler(BoardException.class)
 	public ResponseEntity<Message> handle(BoardException e){
 

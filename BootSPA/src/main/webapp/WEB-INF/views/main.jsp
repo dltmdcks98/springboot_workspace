@@ -144,6 +144,7 @@
 	}
 	//우측 영역에 한건 출력
 	function printBoard(board){
+		$("#detail-form input[name='board_id']").val(board.board_id);
 		$("#detail-form input[name='title']").val(board.title);
 		$("#detail-form input[name='writer']").val(board.writer);
 		$("#detail-form textarea[name='content']").val(board.content);
@@ -199,6 +200,27 @@
  		root.render(<BoardTable boardList={jsonArray} />);
  	}
   	 
+	//수정 요청
+	function edit(){
+		//비동기 요청시 기존 폼을 이용하는 법(파라미터,json)
+		var params = $("#detail-form").serialize();
+		
+		
+		if(confirm("수정하시겠어요")){
+			$.ajax({
+				url:"/rest/board",
+				type:"PUT",
+				data:params,
+				contentType:"application/x-www-form-urlencoded;charset=utf-8",
+				success:function(result,status,xhr){
+					console.log(result);
+				}
+
+			});
+		}
+	
+
+	}
   	 
   	 
 	$(function(){
@@ -213,6 +235,15 @@
 			registByJson();
 		});
 		
+		//상세보기 폼의 버튼 이벤트 처리
+		$($("#detail-area button")[0]).click(function(){
+			edit();
+		});
+
+		$($("#detail-area button")[1]).click(function(){
+			del();
+		});
+
 		getList();
 	});
 </script>
@@ -236,6 +267,7 @@
 		</div>
 		<div id="detail-area">
 			<form id="detail-form">
+				<input type="hidden" name="board_id">
 				<input type="text" name="title" placeholder="제목">
 				<input type="text" name="writer" placeholder="작성자">
 				<textarea style="width: 95%;height:150px;" placeholder="내용" name="content"></textarea>
