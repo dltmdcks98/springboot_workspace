@@ -23,12 +23,21 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
+	
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
+	
+	//tomcat애서 jsp를 사용하기 위함 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	
+	//mybatis와 연결하기 위함
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	// mysql과 연결하기 위함 
+	implementation 'mysql:mysql-connector-java:5.1.49'
+	// Connection pool을 사용하기 위함 
+	implementation 'org.apache.tomcat:tomcat-dbcp:9.0.67'
 	
 }
 
