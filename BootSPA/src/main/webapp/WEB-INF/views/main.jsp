@@ -32,7 +32,7 @@
 		background-color:pink;
 	}
 	#input-area input,#detail-area input{
-		width: 97%;
+		width: 95%;
 	}
 </style>
 
@@ -64,10 +64,10 @@
 			data:params,
 			contentType:"application/x-www-form-urlencoded;charset=utf-8",
 			success:function(result,status,xhr){
-				alert(result);
+				alert(result.msg);
 			},
 			error:function(xhr,status,error){
-				alert(error);
+				alert(error.msg);
 			}
 			
 		});
@@ -94,10 +94,10 @@
  			data:JSON.stringify(json),
  			contentType:"application/json;charset=utf-8",
 			success:function(result,status,xhr){
- 				alert(result);
+ 				alert(result.msg);
  			},
  			error:function(xhr,status,error){
- 				alert(error);
+ 				alert(error.msg);
  			}
  		});
  	}
@@ -124,7 +124,7 @@
 			<form id="input-form">
 				<input type="text" name="title" placeholder="제목">
 				<input type="text" name="writer" placeholder="작성자">
-				<textarea style="width: 98%;height:150px; " placeholder="내용" name="content"></textarea>
+				<textarea style="width: 95%;height:150px; " placeholder="내용" name="content"></textarea>
 				<button type="button">그냥등록</button>
 				<button type="button">폼시리얼 등록</button>
 				<button type="button">json 등록</button>
@@ -139,7 +139,7 @@
 			<form id="detail-form">
 				<input type="text" name="title" placeholder="제목">
 				<input type="text" name="writer" placeholder="작성자">
-				<textarea style="width: 98%;height:150px; " placeholder="내용"></textarea>
+				<textarea style="width: 95%;height:150px;" placeholder="내용"></textarea>
 				<button type="button">수정</button>
 				<button type="button">삭제</button>
 			</form>

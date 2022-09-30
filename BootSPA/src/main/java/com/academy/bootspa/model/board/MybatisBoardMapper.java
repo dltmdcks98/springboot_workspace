@@ -8,7 +8,7 @@ import com.academy.bootspa.model.domain.Board;
 
 //SqlSessionTemplate을 사용하지 않고 개발가능
 @Mapper
-public interface MybatisBoardMapper {	
+public interface MybatisBoardMapper {
 	public List selectAll();
 	public Board select(int board_id);
 	public int insert(Board board);

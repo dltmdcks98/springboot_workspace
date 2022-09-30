@@ -12,10 +12,10 @@ public class BoardController {
 	@GetMapping("/board/main")
 	public ModelAndView getMain() {
 		System.out.println("메인 요청");
-		
+
 		return new ModelAndView("main");
 	}
-	
+
 	//등록요청 처리
 	@PostMapping("/board/regist")
 	public ModelAndView regist(Board board) {
