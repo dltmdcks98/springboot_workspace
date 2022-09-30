@@ -59,7 +59,7 @@
 		
 		//이미 전송할 파라미터화가 완료되었으므로, Json으로 변환하지 말고 그냥 보내보자
 		$.ajax({
-			url:"/rest/board",
+			url:"/rest/serial/board",
 			type:"post",
 			data:params,
 			contentType:"application/x-www-form-urlencoded;charset=utf-8",
@@ -77,7 +77,29 @@
  	 *비동기 방식의 기존폼을 이용한 json 문자열 전송
  	 ---------------------------------------------------------------------*/
  	function registByJson(){
+ 		var formArray = $("#input-form").serializeArray();
+ 		console.log(formArray);
+  		
+ 		//원하는 형태의 json으로 가공
+ 		var json = {};
+ 		for(var i =0; i<formArray.length;i++){
+			json[formArray[i].name]=formArray[i].value;	 			
+ 		}
+ 		console.log(json);
  		
+ 		//json 전송시 주의 : json 객체 자체는 전송 불가 즉 json문자열로 반환
+ 		$.ajax({
+ 			url:"/rest/json/board",
+ 			type:"post",
+ 			data:JSON.stringify(json),
+ 			contentType:"application/json;charset=utf-8",
+			success:function(result,status,xhr){
+ 				alert(result);
+ 			},
+ 			error:function(xhr,status,error){
+ 				alert(error);
+ 			}
+ 		});
  	}
  	
  	
