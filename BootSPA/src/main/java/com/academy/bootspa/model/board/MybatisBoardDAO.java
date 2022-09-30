@@ -23,7 +23,7 @@ public class MybatisBoardDAO implements BoardDAO{
 	@Override
 	public Board select(int board_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.select(board_id);
 	}
 
 	@Override

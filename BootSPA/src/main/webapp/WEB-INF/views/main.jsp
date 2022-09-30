@@ -28,6 +28,7 @@
 		height:100%;
 		float: left;
 		background-color:skyblue;
+		overflow: scroll;
 	}
 	#detail-area{
 		width: 20%;
@@ -68,7 +69,7 @@
 			data:params,
 			contentType:"application/x-www-form-urlencoded;charset=utf-8",
 			success:function(result,status,xhr){
-				alert(result.msg);
+				getList();
 			},
 			error:function(xhr,status,error){
 				alert(error.msg);
@@ -98,7 +99,7 @@
  			data:JSON.stringify(json),
  			contentType:"application/json;charset=utf-8",
 			success:function(result,status,xhr){
- 				alert(result.msg);
+ 				getList();
  			},
  			error:function(xhr,status,error){
  				alert(error.msg);
@@ -124,15 +125,40 @@
  			
  		});
  	}
-  	
+  
+	//비동기 방식으로 한건의 데이터 가져오기	
+  	function getDetail(board_id){
+		console.log("넘겨받은 board_id " +board_id);
+
+		$.ajax({
+			url:"/rest/board/"+board_id,
+			type:"get",
+			success:function(result,status,xhr){
+				console.log(result);
+				printBoard(result);
+			},
+			error:function(xhr, status, error){
+				console.log(error);
+			}
+		});
+	}
+	//우측 영역에 한건 출력
+	function printBoard(board){
+		$("#detail-form input[name='title']").val(board.title);
+		$("#detail-form input[name='writer']").val(board.writer);
+		$("#detail-form textarea[name='content']").val(board.content);
+
+	}
  	/*--------------------------------------------------------------------
   	 *React를 이용한 UI처리
   	 ---------------------------------------------------------------------*/
-  	 function Row(props){
+
+	 function Row(props){
+		var link = "javascript:getDetail("+props.board_id+")";
  		return(
 			<tr align="center">
 				<td>{props.board_id}</td>
-				<td>{props.title}</td>
+				<td><a href={link}>{props.title}</a></td>
 				<td>{props.writer}</td>
 				<td>{props.regdate}</td>
 				<td>{props.hit}</td>
@@ -212,7 +238,7 @@
 			<form id="detail-form">
 				<input type="text" name="title" placeholder="제목">
 				<input type="text" name="writer" placeholder="작성자">
-				<textarea style="width: 95%;height:150px;" placeholder="내용"></textarea>
+				<textarea style="width: 95%;height:150px;" placeholder="내용" name="content"></textarea>
 				<button type="button">수정</button>
 				<button type="button">삭제</button>
 			</form>

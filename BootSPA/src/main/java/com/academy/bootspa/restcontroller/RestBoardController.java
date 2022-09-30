@@ -2,11 +2,14 @@ package com.academy.bootspa.restcontroller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +51,6 @@ public class RestBoardController {
  		return entity;
 	}
 
-
-
 	@GetMapping("/board")
 	public List<Board> getList(){
 		List boardList = boardService.selectAll();
@@ -57,7 +58,13 @@ public class RestBoardController {
 		
 		return boardList;
 	}
-
+	
+	@GetMapping("/board/{board_id}")
+	public Board getDetail(@PathVariable("board_id")  int board_id ) {
+		Board board = boardService.select(board_id);
+		System.out.println(board);
+		return board;
+	}
 
 	@ExceptionHandler(BoardException.class)
 	public ResponseEntity<Message> handle(BoardException e){
