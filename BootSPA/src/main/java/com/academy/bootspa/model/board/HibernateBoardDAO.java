@@ -18,13 +18,13 @@ public class HibernateBoardDAO implements BoardDAO {
 	@Override
 	public List selectAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return boardRepository.findAll();
 	}
 
 	@Override
 	public Board select(int board_id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return boardRepository.findById(board_id).get();
 	}
 
 	@Override
@@ -38,15 +38,25 @@ public class HibernateBoardDAO implements BoardDAO {
 	}
 
 	@Override
-	public void update(Board board) {
+	public void update(Board board) throws BoardException{
 		// TODO Auto-generated method stub
-		
+		Board result =boardRepository.save(board);
+		if(result==null) {
+			throw new BoardException("Hibernate로 수정실패");
+		}
 	}
 
 	@Override
-	public void delete(Board board) {
+	public void delete(Board board) throws BoardException{
 		// TODO Auto-generated method stub
-
+		try {
+			boardRepository.delete(board);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block	
+			e.printStackTrace();
+			throw new BoardException("Hibernate로 삭제실패",e);
+		
+		}
 	}
 
 }
