@@ -36,7 +36,7 @@ public class MybatisBoardDAO implements BoardDAO{
 	}
 
 	@Override
-	public void update(Board board) {
+	public void update(Board board) throws BoardException{
 		// TODO Auto-generated method stub
 		int result = boardMapper.update(board);
 		if(result==0) {
@@ -45,9 +45,12 @@ public class MybatisBoardDAO implements BoardDAO{
 	}
 
 	@Override
-	public void delete(Board board) {
+	public void delete(Board board) throws BoardException{
 		// TODO Auto-generated method stub
-
+		int result = boardMapper.delete(board);
+		if(result==0) {
+			throw new BoardException("Mybatis에 의한 수정 실패");
+		}
 	}
 
 }

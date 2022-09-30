@@ -213,7 +213,7 @@
 				data:params,
 				contentType:"application/x-www-form-urlencoded;charset=utf-8",
 				success:function(result,status,xhr){
-					console.log(result);
+					console.log(result.msg);
 					getList();
 				}
 
@@ -222,8 +222,22 @@
 	
 
 	}
-  	 
-  	 
+  	 //삭제요청
+  	 function del(){
+		if(confirm("삭제하시겠어요")){
+			$.ajax({
+				url:"/rest/board?board_id="+$("#detail-form input[name='board_id']").val(),
+				type:"delete",
+				success:function(result,status, xhr){
+					console.log(result);
+					getList();
+				},
+				error:function(xhr,status,error){
+					alert(error);
+				}
+			});	
+		}
+	}
 	$(function(){
 		$($("#input-area button")[0]).click(function(){
 			regist();

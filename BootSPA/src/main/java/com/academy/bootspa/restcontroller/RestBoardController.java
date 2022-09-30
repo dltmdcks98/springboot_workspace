@@ -2,11 +2,10 @@ package com.academy.bootspa.restcontroller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,6 +75,16 @@ public class RestBoardController {
 		Message message = new Message(1,"수정 성공");
 		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
  		return entity ;
+	}
+	
+	@DeleteMapping("/board")
+	public ResponseEntity<Message> del(Board board){
+		boardService.delete(board);
+		
+		Message message = new Message(1,"삭제 성공");
+		ResponseEntity<Message> entity = new ResponseEntity<Message>(message,HttpStatus.OK);
+ 		return entity ;
+		
 	}
 	
 	@ExceptionHandler(BoardException.class)
